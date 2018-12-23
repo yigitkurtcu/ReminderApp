@@ -1,0 +1,60 @@
+type Query {
+  getMyReminders: [Message!]!
+}
+
+type Mutation {
+  setReminder(data: ReminderInput!): String!
+  cancelReminder(id: String!): String!
+  register(data: RegisterInput!): RegisterPayload!
+  login(data: LoginInput!): AuthPayload!
+}
+
+type User {
+  _id: String!
+  fullName: String!
+  email: String!
+  password: String!
+}
+
+type Message {
+  _id: String!
+  text: String!
+  author: String!
+  email: String!
+  time: String!
+  status: String!
+}
+
+type RemindersPayload {
+  _id: String!
+  text: String!
+  time: String!
+  status: String!
+}
+
+type AuthPayload {
+  token: String!
+  user: RegisterPayload!
+}
+
+type RegisterPayload {
+  _id: String!
+  fullName: String!
+  email: String!
+}
+
+input ReminderInput {
+  date: String!
+  message: String!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+input RegisterInput {
+  fullName: String!
+  email: String!
+  password: String!
+}
