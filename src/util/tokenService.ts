@@ -1,13 +1,12 @@
 import jwt from 'jsonwebtoken'
 import secrets from '../../config'
 
-export const getUserId = request => {
-  const header = request.request.headers.authorization
-
+export const getUserId = (request): string => {
+  const header: string = request.request.headers.authorization
   if (!header) throw new Error('Authentication required!')
 
-  const token = header.replace('Bearer ', '')
-  const decoded = jwt.verify(token, secrets.SECRET_KEY)
+  const token: string = header.replace('Bearer ', '')
+  const decoded: { userId: string } = jwt.verify(token, secrets.SECRET_KEY)
   return decoded.userId
 }
 

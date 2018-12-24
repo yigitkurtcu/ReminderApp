@@ -6,10 +6,11 @@ import Message from '../models/Message'
 import User from '../models/User'
 import { sendMail } from '../util/mailService'
 import { generateToken, getUserId } from '../util/tokenService'
+import { Document } from 'mongoose'
 
 const Mutation = {
   async setReminder(parent, { data }, { request }, info) {
-    const userId = await getUserId(request)
+    const userId: string = await getUserId(request)
     // Check that the date is not in the past
     if (data.date < moment().format()) throw new Error('Date is invalid')
     if (data.message.length < 5)
@@ -43,7 +44,7 @@ const Mutation = {
     return 'Your reminder successfully canceled.'
   },
   async register(parent, { data }, ctx, info) {
-    const isExists = await User.findOne({ email: data.email })
+    const isExists: Document = await User.findOne({ email: data.email })
     if (isExists) throw new Error('Email is exists')
 
     const password: string = await bcrypt.hash(data.password, 10)
@@ -63,7 +64,10 @@ const Mutation = {
     const user: any = await User.findOne({ email: args.data.email })
     if (!user) throw new Error('Unable to login!')
 
-    const isMatch = await bcrypt.compare(args.data.password, user.password)
+    const isMatch: boolean = await bcrypt.compare(
+      args.data.password,
+      user.password
+    )
     if (!isMatch) throw new Error('Unable to login!')
 
     return {

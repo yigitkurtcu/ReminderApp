@@ -3,10 +3,10 @@ import Message from '../models/Message'
 import secrets from '../../config'
 
 export const sendMail = (text, email, messageInstance) => {
-  const user = secrets.USER_MAIL
-  const pass = secrets.PASS_MAIL
-  const to = email
-  const subject = 'Reminder App'
+  const user: string = secrets.USER_MAIL
+  const pass: string = secrets.PASS_MAIL
+  const to: string = email
+  const subject: string = 'Reminder App'
 
   const transporter = mailer.createTransport({
     auth: {
@@ -16,7 +16,7 @@ export const sendMail = (text, email, messageInstance) => {
     service: 'gmail'
   })
 
-  const mailOptions = {
+  const mailOptions: object = {
     from: user,
     to,
     subject,

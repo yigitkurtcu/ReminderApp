@@ -9,7 +9,7 @@ export const checkReminders = async () => {
     // Send mail for out-of-date reminders
     if (message.time < moment().format()) {
       // tslint:disable-next-line:max-line-length
-      const mailText = `We could not remind your message in a timely manner because of a technical failure.<br>Your message is '${
+      const mailText: string = `We could not remind your message in a timely manner because of a technical failure.<br>Your message is '${
         message.text
       }' and your remind time '${message.time}'`
       sendMail(mailText, message.email, message)
